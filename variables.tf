@@ -102,16 +102,6 @@ variable "rancher" {
 
 variable "rancher_bootstrap" {}
 
-variable "ca_cert_path" {
-  type = string
-  description = "CA certificate path from Terraform root"
-}
-
-variable "ca_key_path" {
-  type = string
-  description = "CA key path from Terraform root"
-}
-
 
 variable "cloudflare" {
 
