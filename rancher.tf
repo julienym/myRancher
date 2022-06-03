@@ -58,5 +58,4 @@ resource "rancher2_bootstrap" "admin" {
   initial_password = var.rancher_bootstrap
   password = var.rancher_bootstrap
   telemetry = true
-  token_update = true
 }
