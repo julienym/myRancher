@@ -1,0 +1,8 @@
+installCRDs: true
+extraEnv:
+- name: http_proxy
+  value: http://router.home:3128
+- name: https_proxy
+  value: http://router.home:3128
+- name: no_proxy
+  value: 127.0.0.1,localhost,10.43.0.0/16

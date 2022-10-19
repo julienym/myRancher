@@ -8,10 +8,12 @@ YAML
 }
 
 resource "kubectl_manifest" "rancher_cert" {
+  count = var.cert-manager.enabled ? 1 : 0
   depends_on = [
     module.cert-manager,
     kubectl_manifest.rancher_ns
   ]
+
   yaml_body = <<YAML
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -31,20 +33,22 @@ YAML
 
 module "rancher" {
   depends_on = [
-    module.cert-manager,
-    kubectl_manifest.rancher_cert,
+    module.cert-manager[0],
+    kubectl_manifest.rancher_cert[0],
   ]
-  source = "git::https://github.com/julienym/myTerraformModules.git//helm?ref=1.0.0"
+  # source = "git::https://github.com/julienym/myTerraformModules.git//helm?ref=1.0.0"
+  source = "../myTerraformModules/helm"
+  
   name = "rancher"
   repository = "https://releases.rancher.com/server-charts/stable"
   namespace = "cattle-system"
   chart = "rancher"
-  chart_version = "2.6.5"
+  chart_version = var.rancher.version
   values = {
     hostname = var.rancher.domain
-    "ingress.tls.source" = "secret"
+    "ingress.tls.source" =  var.cert-manager.enabled ? "secret" : "rancher"
     bootstrapPassword = var.rancher_bootstrap
-    "certmanager.version" = "1.7.1"
+    "certmanager.version" = var.cert-manager.enabled ? "1.7.1" : null
     replicas = var.rancher.replicas
   }
 }

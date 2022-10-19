@@ -40,9 +40,10 @@ provider "rancher2" {
 
   api_url   = "https://${var.rancher.domain}"
   bootstrap = true
+  insecure = var.cert-manager.enabled ? false : true
 }
 
 provider "cloudflare" {
-  email   = var.cloudflare.email
+  # email   = var.cloudflare.email
   api_token = var.cloudflare.api_token
 }

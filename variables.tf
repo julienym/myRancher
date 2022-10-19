@@ -91,10 +91,6 @@ variable "bastion_default" {
   description = "Default values for using a ssh bastion"
 }
 
-variable "rke_name" {
-  type = string
-}
-
 
 variable "rancher" {
   type = map(string)
@@ -109,4 +105,17 @@ variable "cloudflare" {
 
 variable "acme_email" {
   type = string
+}
+
+variable "cert-manager" {
+  default = {
+    enabled = true
+  }
+  description = "Cert-Manager installation map"
+}
+
+variable "netdata" {
+  default = {
+    enabled = false
+  }
 }

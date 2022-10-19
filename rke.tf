@@ -1,7 +1,8 @@
 module "rke" {
-  source = "git::https://github.com/julienym/myTerraformModules.git//rke?ref=1.0.0"
+  # source = "git::https://github.com/julienym/myTerraformModules.git//rke?ref=1.0.0"
+  source = "../myTerraformModules/rke"
 
-  name = var.rke_name
+  name = local.rke_name
   api_domain = var.rancher.domain
   domain_name = var.proxmox.domain_name
 
